@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 # bin/release <build-dir>
 
+#This is generating a YAML
+
 echo 'default_process_types:'
 
 if [[ "${OPTIMIZE_MEMORY:-}" = "true" ]]; then
-  echo '  web: NODE_OPTIONS="--max_old_space_size=$(( $MEMORY_AVAILABLE * 75 / 100 ))" npm start'
+  echo '  web: npm run build; npm install -g serve; NODE_OPTIONS="--max_old_space_size=$(( $MEMORY_AVAILABLE * 75 / 100 ))" serve -s build'
 else
-  echo '  web: npm start'
+  echo '  web: npm run build; npm install -g serve; serve -s build'
 fi
